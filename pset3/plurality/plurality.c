@@ -68,28 +68,6 @@ int main(int argc, string argv[])
 			}
 		}
 	}
-
-	// bubble sort candidates.votes
-	for (int i = 0; i < voter_count - 1; i++)
-	{
-		for (int j = 1; j < voter_count - 2; j++)
-		{
-			if (candidates[i].votes > candidates[j].votes)
-			{
-				int swap = i;
-				candidates[i].votes = candidates[j].votes;
-				candidates[j].votes = swap;
-			}
-		}
-		/*
-		if (candidates[voter_count - 1].votes <= candidates[voter_count - 2].votes)
-		{
-			printf("bubble sort: %i\n%i\n%i\n", candidates[0].votes, candidates[1].votes, candidates[2].votes);
-			return 0;
-		}
-		
-		*/
-	}
 	// Display winner of election
 	print_winner();
 }
@@ -114,5 +92,35 @@ bool vote(string name)
 // Print the winner (or winners) of the election
 void print_winner(void)
 {
-	return;
+	int sorted_votes[candidate_count];
+
+	// array copy of candidates.votes for bubble sort
+	for (int i = 0; i < candidate_count; i++)
+	{
+		sorted_votes[i] = candidates[i].votes;
+	}
+	// bubble sorting candidates.votes
+	for (int i = 0; i <= candidate_count - 1; i++)
+    {
+        for (int j = 0; j <= candidate_count - 2; j++)
+        {
+            // if 5 > 2
+            if (sorted_votes[j] < sorted_votes[j+1])
+            {
+                int swap = sorted_votes[j+1];
+                sorted_votes[j+1] = sorted_votes[j];
+                sorted_votes[j] = swap;
+            }
+        }
+    }
+
+	// find winner(s)
+	for (int i = 0; i < candidate_count; i++)
+	{
+		if (candidates[i].votes == sorted_votes[0])
+		{
+			printf("%s", candidates[i].name);
+			printf("\n");
+		}
+	}
 }
