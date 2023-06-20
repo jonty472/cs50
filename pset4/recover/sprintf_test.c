@@ -9,8 +9,9 @@ int main(void)
     char filename[50];
     for (int i = 0; i < 5; i++)
     {
-        sprintf(filename, "%03i.jpg", counter);
+        int result = sprintf(filename, "%03i.jpg", counter);
         FILE *outfile = fopen(filename, "w");
+        printf("%i\n", result);
         counter++;
     }
 }
